@@ -48,19 +48,21 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+    <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-start p-6">
       <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">
         TTS Szövegformázó
       </h1>
 
-      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-3xl space-y-4">
+      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-5xl space-y-6">
+        {/* 🔹 Fő beviteli mező */}
         <textarea
-          className="mt-1 block w-full border rounded-md p-3 h-60 text-lg"
-          placeholder="Illeszd be ide a szöveget..."
+          className="mt-1 block w-full border rounded-xl p-4 text-lg h-[500px] resize-none"
+          placeholder="Ide illeszd be a teljes szöveget..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         ></textarea>
 
+        {/* Hangbeállítások */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <span className="text-gray-700">Hangmagasság:</span>
@@ -93,8 +95,9 @@ export default function Page() {
           Szöveg formázása és feldarabolása
         </button>
 
+        {/* 🔹 Kimeneti részek */}
         {chunks.length > 0 && (
-          <div className="mt-8 space-y-8 w-full max-w-3xl">
+          <div className="mt-8 space-y-10 w-full">
             {chunks.map((chunk, index) => (
               <div
                 key={index}
@@ -104,13 +107,13 @@ export default function Page() {
                   Rész {index + 1} / {chunks.length} ({chunk.length} karakter)
                 </h2>
                 <textarea
-                  className="w-full border rounded-md p-3 h-64 text-lg mb-3"
+                  className="w-full border rounded-md p-3 h-[260px] text-lg resize-none"
                   value={chunk}
                   readOnly
                 ></textarea>
                 <button
                   onClick={() => copyToClipboard(chunk)}
-                  className="bg-green-600 text-white rounded-xl py-2 px-4 w-full text-lg"
+                  className="bg-green-600 text-white rounded-xl py-2 px-4 w-full text-lg mt-2"
                 >
                   Másolás
                 </button>
