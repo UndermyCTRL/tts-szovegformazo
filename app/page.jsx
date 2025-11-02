@@ -9,14 +9,10 @@ export default function Page() {
 
   const MAX_CHARS = 2000;
 
-  // 🔹 Szöveg formázása és darabolása
   const formatText = () => {
     let text = input;
-
-    // Kisebb szünet minden mondat végére
     text = text.replace(/([.!?])\s*/g, "$1 ... ");
 
-    // Angol szavak fonetikusra cserélése
     const phoneticMap = {
       "loot": "lút",
       "build": "bíld",
@@ -36,10 +32,8 @@ export default function Page() {
       text = text.replace(regex, hun);
     });
 
-    // Felesleges szóközök eltávolítása
     text = text.replace(/\s+/g, " ").trim();
 
-    // 🔹 Feldarabolás 2000 karakterenként
     const parts = [];
     for (let i = 0; i < text.length; i += MAX_CHARS) {
       parts.push(text.slice(i, i + MAX_CHARS));
@@ -59,9 +53,9 @@ export default function Page() {
         TTS Szövegformázó
       </h1>
 
-      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-2xl space-y-4">
+      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-3xl space-y-4">
         <textarea
-          className="mt-1 block w-full border rounded-md p-2 h-40"
+          className="mt-1 block w-full border rounded-md p-3 h-60 text-lg"
           placeholder="Illeszd be ide a szöveget..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -94,29 +88,29 @@ export default function Page() {
 
         <button
           onClick={formatText}
-          className="bg-blue-600 text-white rounded-xl py-2 px-4 w-full"
+          className="bg-blue-600 text-white rounded-xl py-3 px-4 w-full text-lg"
         >
           Szöveg formázása és feldarabolása
         </button>
 
         {chunks.length > 0 && (
-          <div className="mt-6 space-y-6">
+          <div className="mt-8 space-y-8 w-full max-w-3xl">
             {chunks.map((chunk, index) => (
               <div
                 key={index}
-                className="bg-gray-50 border rounded-xl p-4 shadow-sm"
+                className="bg-gray-50 border rounded-2xl p-5 shadow-sm"
               >
-                <h2 className="font-semibold text-gray-700 mb-2">
+                <h2 className="font-semibold text-gray-700 mb-3 text-lg">
                   Rész {index + 1} / {chunks.length} ({chunk.length} karakter)
                 </h2>
                 <textarea
-                  className="w-full border rounded-md p-2 h-40 mb-2"
+                  className="w-full border rounded-md p-3 h-64 text-lg mb-3"
                   value={chunk}
                   readOnly
                 ></textarea>
                 <button
                   onClick={() => copyToClipboard(chunk)}
-                  className="bg-green-600 text-white rounded-xl py-2 px-4 w-full"
+                  className="bg-green-600 text-white rounded-xl py-2 px-4 w-full text-lg"
                 >
                   Másolás
                 </button>
